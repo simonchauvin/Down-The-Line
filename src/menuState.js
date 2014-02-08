@@ -1,33 +1,34 @@
+/*globals FM */
 /**
  * Start menu state
- * @returns {___that0}
  */
-function menuState() {
+var menuState = function () {
     "use strict";
-    var that = Object.create(FMENGINE.fmState());
+    FM.State.call(this);
+};
+menuState.prototype = Object.create(FM.State.prototype);
+menuState.prototype.constructor = menuState;
+/**
+ * Initialize the menu
+ */
+menuState.prototype.init = function () {
+    "use strict";
+    FM.State.prototype.init.call(this);
 
-    /**
-     * Initialize the menu
-     */
-    that.init = function () {
-        Object.getPrototypeOf(that).init();
+    var menu = new FM.GameObject(5);
+    menu.addComponent(new FM.SpatialComponent(0, 0, menu));
+    menu.addComponent(new FM.SpriteRendererComponent(FM.AssetManager.getAssetByName("menu"), 800, 576, menu));
+    this.add(menu);
+};
 
-        var menu = FMENGINE.fmGameObject(5),
-            sp = FMENGINE.fmSpatialComponent(0, 0, menu),
-            renderer = FMENGINE.fmSpriteRendererComponent(FMENGINE.fmAssetManager.getAssetByName("menu"), 800, 576, menu);
-        that.add(menu);
-    };
+/**
+ * Update of the menu state
+ */
+menuState.prototype.update = function (dt) {
+    "use strict";
+    FM.State.prototype.update.call(this, dt);
 
-    /**
-     * Update of the menu state
-     */
-    that.update = function (dt) {
-        Object.getPrototypeOf(that).update(dt);
-
-        if (FMENGINE.fmGame.isKeyReleased(FMENGINE.fmKeyboard.ENTER) || FMENGINE.fmGame.isMouseClicked()) {
-            FMENGINE.fmGame.switchState(tutorialState());
-        }
-    };
-
-    return that;
-}
+    if (FM.Game.isKeyReleased(FM.Keyboard.ENTER) || FM.Game.isMouseClicked()) {
+        FM.Game.switchState(new tutorialState());
+    }
+};

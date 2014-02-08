@@ -1,7 +1,7 @@
 var levels = function () {
     "use strict";
     var that = {};
-    that.currentLevel = "level14";
+    that.currentLevel = "level0";
     that.endLevel = "level14";
 
     that.goToNextLevel = function () {

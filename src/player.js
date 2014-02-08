@@ -1,19 +1,17 @@
+/*globals FM */
 /**
  * 
  */
-var player = function (pMaxNumberOfWaypoints, pMinNumberOfEntities) {
+var Player = function (pMaxNumberOfWaypoints, pMinNumberOfEntities) {
     "use strict";
-    var that = {};
 
-    that.entities = [];
+    this.entities = [];
 
-    that.currentNumberOfWaypoints = 0;
-    that.maxNumberOfWaypoints = pMaxNumberOfWaypoints;
+    this.currentNumberOfWaypoints = 0;
+    this.maxNumberOfWaypoints = pMaxNumberOfWaypoints;
 
-    that.currentNumberOfEntities = 0;
-    that.minNumberOfEntities = pMinNumberOfEntities;
+    this.currentNumberOfEntities = 0;
+    this.minNumberOfEntities = pMinNumberOfEntities;
 
-    that.waypoints = [];
-
-    return that;
+    this.waypoints = [];
 };

@@ -5,79 +5,92 @@
     <title>Down The Line</title>
 
     <!--
-    	FMJSEngine files
+    	The {FM.js(engine);}
     -->
-    <script type="text/javascript" src="lib/fm/fmAssetManager.js"></script>
-    <script type="text/javascript" src="lib/fm/fmAudioAsset.js"></script>
-    <script type="text/javascript" src="lib/fm/fmCircle.js"></script>
-    <script type="text/javascript" src="lib/fm/fmComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/fmComponentTypes.js"></script>
-    <script type="text/javascript" src="lib/fm/fmFileAsset.js"></script>
-    <script type="text/javascript" src="lib/fm/fmGame.js"></script>
-    <script type="text/javascript" src="lib/fm/fmGameObject.js"></script>
-    <script type="text/javascript" src="lib/fm/fmImageAsset.js"></script>
-    <script type="text/javascript" src="lib/fm/fmKeyboard.js"></script>
-    <script type="text/javascript" src="lib/fm/fmParameters.js"></script>
-    <script type="text/javascript" src="lib/fm/fmPoint.js"></script>
-    <script type="text/javascript" src="lib/fm/fmPreloader.js"></script>
-    <script type="text/javascript" src="lib/fm/fmRectangle.js"></script>
-    <script type="text/javascript" src="lib/fm/fmState.js"></script>
-    <script type="text/javascript" src="lib/fm/fmTilemap.js"></script>
-    <script type="text/javascript" src="lib/fm/fmUtils.js"></script>
-    <script type="text/javascript" src="lib/fm/fmWorld.js"></script>
-
-    <!-- Components -->
-    <!-- FX components -->
-    <script type="text/javascript" src="lib/fm/components/fx/fmEmitterComponent.js"></script>
-    <!-- Spatial components -->
-    <script type="text/javascript" src="lib/fm/components/spatial/fmSpatialComponent.js"></script>
-    <!-- Pathfinding components -->
-    <script type="text/javascript" src="lib/fm/components/pathfinding/fmSimplePathComponent.js"></script>
-    <!-- Physic components -->
-    <script type="text/javascript" src="lib/fm/components/physic/fmAabbComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/physic/fmCircleComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/physic/fmPhysicComponent.js"></script>
-    <!-- Renderer components -->
-    <script type="text/javascript" src="lib/fm/components/renderer/fmAnimatedSpriteRendererComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/renderer/fmSpriteRendererComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/renderer/fmTextRendererComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/renderer/fmCircleRendererComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/components/renderer/fmLineRendererComponent.js"></script>
-    <!-- Sound components -->
-    <script type="text/javascript" src="lib/fm/components/sound/fmSoundComponent.js"></script>
-
+    <script type="text/javascript" src="lib/fm/fmjsengine-concat.js"></script>
     <!--
-	Tools
+        Down The Line's entry point.
     -->
-    <script type="text/javascript" src="lib/fm/tools/Box2D/Box2dWeb-2.1.a.3.min.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/Box2D/fmBox2DWorld.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/Box2D/fmB2BoxComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/Box2D/fmB2CircleComponent.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxMap.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxPropertySet.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxTileSet.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxLayer.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxObjectGroup.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/TmxLoader/tmxObject.js"></script>
-    <script type="text/javascript" src="lib/fm/tools/QuadTree.js"></script>
-    
-    <!--
-    	Down The Line files
-    -->
-    <script type="text/javascript" src="src/DownTheLine.js"></script>
-    <script type="text/javascript" src="src/levels.js"></script>
-    <script type="text/javascript" src="src/menuState.js"></script>
-    <script type="text/javascript" src="src/tutorialState.js"></script>
-    <script type="text/javascript" src="src/playState.js"></script>
-    <script type="text/javascript" src="src/endState.js"></script>
-    <script type="text/javascript" src="src/player.js"></script>
-    <script type="text/javascript" src="src/planet.js"></script>
-    <script type="text/javascript" src="src/entity.js"></script>
+    <script>
+        //Include Down The Line's files
+        FM.includeJsFile("src/menuState.js");
+        FM.includeJsFile("src/tutorialState.js");
+        FM.includeJsFile("src/playState.js");
+        FM.includeJsFile("src/endState.js");
+        FM.includeJsFile("src/levels.js");
+        FM.includeJsFile("src/player.js");
+        FM.includeJsFile("src/planet.js");
+        FM.includeJsFile("src/entity.js");
+
+        //Function called when every file is loaded.
+        var start = function () {
+            "use strict";
+            //Add assets
+            var assetManager = FM.AssetManager,
+                param = FM.Parameters;
+            //Debug mode
+            param.debug = true;
+
+            //Audio
+            assetManager.addAsset("enterTheSun", param.AUDIO, "assets/sfx/enter_the_sun.wav");
+            assetManager.addAsset("putDownWaypoint", param.AUDIO, "assets/sfx/put_down_waypoint.wav");
+            assetManager.addAsset("win", param.AUDIO, "assets/sfx/win.wav");
+            assetManager.addAsset("attracted", param.AUDIO, "assets/sfx/attracted.wav");
+            assetManager.addAsset("collision", param.AUDIO, "assets/sfx/collision.wav");
+            assetManager.addAsset("ambiance", param.AUDIO, "assets/sfx/ambiance.wav");
+            assetManager.addAsset("replaySnd", param.AUDIO, "assets/sfx/replay.wav");
+        
+            //Images
+            assetManager.addAsset("menu", param.IMAGE, "assets/gfx/menu.png");
+            assetManager.addAsset("background", param.IMAGE, "assets/gfx/background.png");
+            assetManager.addAsset("replay", param.IMAGE, "assets/gfx/replay.png");
+            assetManager.addAsset("victory", param.IMAGE, "assets/gfx/victory.png");
+            assetManager.addAsset("goal", param.IMAGE, "assets/gfx/goal.png");
+            assetManager.addAsset("planet1", param.IMAGE, "assets/gfx/planet1.png");
+            assetManager.addAsset("planet2", param.IMAGE, "assets/gfx/planet2.png");
+            assetManager.addAsset("entity1", param.IMAGE, "assets/gfx/entity1.png");
+            assetManager.addAsset("entity2", param.IMAGE, "assets/gfx/entity2.png");
+            assetManager.addAsset("waypoint", param.IMAGE, "assets/gfx/waypoint.png");
+            assetManager.addAsset("sunParticle", param.IMAGE, "assets/gfx/sun_particle.png");
+        
+            //Levels
+            assetManager.addAsset("level0", param.FILE, "levels/level0.tmx");
+            assetManager.addAsset("level1", param.FILE, "levels/level1.tmx");
+            assetManager.addAsset("level2", param.FILE, "levels/level2.tmx");
+            assetManager.addAsset("level3", param.FILE, "levels/level3.tmx");
+            assetManager.addAsset("level4", param.FILE, "levels/level4.tmx");
+            assetManager.addAsset("level5", param.FILE, "levels/level5.tmx");
+            assetManager.addAsset("level6", param.FILE, "levels/level6.tmx");
+            assetManager.addAsset("level7", param.FILE, "levels/level7.tmx");
+            assetManager.addAsset("level8", param.FILE, "levels/level8.tmx");
+            assetManager.addAsset("level9", param.FILE, "levels/level9.tmx");
+            assetManager.addAsset("level10", param.FILE, "levels/level10.tmx");
+            assetManager.addAsset("level11", param.FILE, "levels/level11.tmx");
+            assetManager.addAsset("level12", param.FILE, "levels/level12.tmx");
+            assetManager.addAsset("level13", param.FILE, "levels/level13.tmx");
+            assetManager.addAsset("level14", param.FILE, "levels/level14.tmx");
+            assetManager.addAsset("level15", param.FILE, "levels/level15.tmx");
+            assetManager.addAsset("level16", param.FILE, "levels/level16.tmx");
+            assetManager.addAsset("level17", param.FILE, "levels/level17.tmx");
+            assetManager.addAsset("level18", param.FILE, "levels/level18.tmx");
+            assetManager.addAsset("level19", param.FILE, "levels/level19.tmx");
+            assetManager.addAsset("level20", param.FILE, "levels/level20.tmx");
+
+            //Load assets
+            assetManager.loadAssets();
+
+            //Start the game
+            FM.Game.run("canvas", "Down The Line", 800, 576, new menuState());
+        };
+
+        //Launch the sart function when every file is loaded
+        window.addEventListener("load", start, false);
+    </script>
 </head>
 
-<body style="background-color: #001;">
+<body style="background-color: #111;">
 
-<canvas id="canvas" style="display: block;margin: auto; outline: none;" tabindex='1'>
+<canvas id="canvas" style="display: block;margin: auto;outline: none;cursor: none" tabindex='1'>
     <p>
     	This application requires a browser that supports the HTML5 Canvas element.
     </p>
