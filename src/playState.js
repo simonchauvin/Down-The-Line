@@ -76,7 +76,7 @@ playState.prototype.init = function () {
     sound.addSound(this.assetManager.getAssetByName("replaySnd"));
     this.add(this.replay);
     //Loading objects from tmx file
-    map.load(this.assetManager.getAssetByName(this.levels.currentLevel).getContent());
+    map.load(this.assetManager.getAssetByName(this.levels.currentLevel).content);
     //map.load(FM.AssetManager.getAssetByName("level15").getContent());
     //Create player
     this.thePlayer = new Player(parseInt(map.properties.maxNumberOfWaypoints), parseInt(map.properties.minNumberOfEntities));
@@ -223,7 +223,7 @@ playState.prototype.restart = function () {
     this.entities = [];
     this.path.components[FM.ComponentTypes.RENDERER].clear();
     //Loading objects from tmx file
-    map.load(FM.AssetManager.getAssetByName(this.levels.currentLevel).getContent());
+    map.load(FM.AssetManager.getAssetByName(this.levels.currentLevel).content);
     //Create player
     this.thePlayer = new Player(parseInt(map.properties.maxNumberOfWaypoints), parseInt(map.properties.minNumberOfEntities));
     //Waypoints left label
